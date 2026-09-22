@@ -1,0 +1,2097 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Your Name | 3D Artist & Animator</title>
+
+    <style>
+        /* =========================
+   GLOBAL
+========================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #080808;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: min(1200px, 90%);
+            margin: auto;
+        }
+
+        section {
+            padding: 110px 0;
+        }
+
+        /* =========================
+   NAVBAR
+========================= */
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+
+            padding: 20px 5%;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            background: rgba(8, 8, 8, 0.65);
+            backdrop-filter: blur(15px);
+
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #9d7cff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #aaa;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .menu {
+            display: none;
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        /* =========================
+   HERO
+========================= */
+
+        .hero {
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+
+            position: relative;
+            overflow: hidden;
+
+            background:
+                radial-gradient(circle at 70% 30%, rgba(124, 92, 255, 0.25), transparent 35%),
+                radial-gradient(circle at 20% 80%, rgba(0, 180, 255, 0.12), transparent 30%),
+                #080808;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+        }
+
+        .small-title {
+            color: #9d7cff;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: clamp(50px, 8vw, 100px);
+            line-height: 0.95;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(90deg, #fff, #9d7cff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            color: #aaa;
+            font-size: 18px;
+            line-height: 1.7;
+            max-width: 600px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 35px;
+        }
+
+        .btn {
+            padding: 14px 25px;
+            border-radius: 8px;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+        .btn-primary {
+            background: white;
+            color: black;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-outline {
+            border: 1px solid #444;
+            color: white;
+        }
+
+        .btn-outline:hover {
+            border-color: #9d7cff;
+            color: #9d7cff;
+        }
+
+        /* =========================
+   FLOATING 3D SHAPE
+========================= */
+
+        .cube {
+            position: absolute;
+
+            right: 12%;
+            top: 30%;
+
+            width: 230px;
+            height: 230px;
+
+            border: 1px solid rgba(255, 255, 255, 0.2);
+
+            transform:
+                rotateX(55deg) rotateZ(45deg);
+
+            animation: floating 6s ease-in-out infinite;
+
+            box-shadow:
+                0 0 80px rgba(130, 90, 255, 0.2),
+                inset 0 0 40px rgba(255, 255, 255, 0.03);
+        }
+
+        .cube::before,
+        .cube::after {
+            content: "";
+            position: absolute;
+
+            inset: 25px;
+
+            border: 1px solid rgba(157, 124, 255, 0.5);
+        }
+
+        .cube::after {
+            transform: translate(35px, 35px);
+        }
+
+        @keyframes floating {
+
+            0%,
+            100% {
+                transform:
+                    rotateX(55deg) rotateZ(45deg) translateY(0);
+            }
+
+            50% {
+                transform:
+                    rotateX(55deg) rotateZ(45deg) translateY(-30px);
+            }
+        }
+
+        /* =========================
+   SECTION TITLES
+========================= */
+
+        .section-title {
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #777;
+        }
+
+        /* =========================
+   PROJECT GRID
+========================= */
+
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .project {
+            position: relative;
+            height: 380px;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #111114;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.4s ease,
+                box-shadow 0.4s ease;
+        }
+
+        .project:hover {
+            transform: translateY(-8px);
+            border-color: rgba(157, 124, 255, 0.5);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7), 0 0 25px rgba(157, 124, 255, 0.18);
+        }
+
+        .project-badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            z-index: 5;
+            background: rgba(10, 10, 14, 0.72);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            color: #eee;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 6px 12px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            pointer-events: none;
+        }
+
+        .project-badge.video-badge {
+            border-color: rgba(157, 124, 255, 0.45);
+            color: #e2d9fc;
+        }
+
+        .badge-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #9d7cff;
+            box-shadow: 0 0 8px #9d7cff;
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.35;
+                transform: scale(0.8);
+            }
+        }
+
+        .video-indicator {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: rgba(15, 15, 22, 0.65);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            padding-left: 3px;
+            opacity: 0.85;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 4;
+            pointer-events: none;
+        }
+
+        .project:hover .video-indicator {
+            transform: translate(-50%, -50%) scale(1.1);
+            opacity: 1;
+            background: rgba(157, 124, 255, 0.5);
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 25px rgba(157, 124, 255, 0.45);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            background: #09090b;
+        }
+
+        .project-media {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .project:hover .project-media {
+            transform: scale(1.06);
+        }
+
+        .project-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 35px 24px 20px;
+            background: linear-gradient(to top,
+                    rgba(8, 8, 8, 0.98) 0%,
+                    rgba(8, 8, 8, 0.75) 55%,
+                    transparent 100%);
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .project-info h3 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .project-info p {
+            color: #aaa;
+            font-size: 13px;
+            letter-spacing: 0.4px;
+        }
+
+        /* =========================
+   ANIMATION SHOWCASE
+========================= */
+
+        .animation-showcase {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .video-card {
+            position: relative;
+            width: 100%;
+            max-width: 1050px;
+            margin: 0 auto;
+            aspect-ratio: 16 / 9;
+            border-radius: 20px;
+            overflow: hidden;
+            background: #09090d;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 35px rgba(157, 124, 255, 0.12);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(157, 124, 255, 0.45);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.85), 0 0 45px rgba(157, 124, 255, 0.22);
+        }
+
+        .reel-video {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .video-card:hover .reel-video {
+            transform: scale(1.02);
+        }
+
+        .reel-play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            width: 76px;
+            height: 76px;
+            border-radius: 50%;
+            background: rgba(12, 12, 16, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            padding-left: 4px;
+            cursor: pointer;
+            z-index: 6;
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .video-card:hover .reel-play-btn,
+        .reel-play-btn.is-paused {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .reel-play-btn:hover {
+            transform: translate(-50%, -50%) scale(1.15) !important;
+            background: rgba(157, 124, 255, 0.6);
+            box-shadow: 0 0 35px rgba(157, 124, 255, 0.5);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .video-title {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 35px 32px 24px;
+            background: linear-gradient(to top,
+                    rgba(8, 8, 8, 0.96) 0%,
+                    rgba(8, 8, 8, 0.72) 60%,
+                    transparent 100%);
+            z-index: 5;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .video-info-left h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .video-info-left p {
+            color: #bbb;
+            font-size: 14px;
+            letter-spacing: 0.3px;
+        }
+
+        .video-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .reel-ctrl-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(15, 15, 22, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .reel-ctrl-btn:hover {
+            background: rgba(157, 124, 255, 0.5);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(157, 124, 255, 0.4);
+        }
+
+        .reel-ctrl-btn.active {
+            background: rgba(157, 124, 255, 0.7);
+            border-color: #9d7cff;
+        }
+
+        /* =========================
+   SKILLS
+========================= */
+
+        .skills {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 15px;
+        }
+
+        .skill {
+            padding: 30px;
+
+            background: #101010;
+
+            border: 1px solid #202020;
+
+            border-radius: 12px;
+
+            transition: 0.3s;
+        }
+
+        .skill:hover {
+            transform: translateY(-5px);
+            border-color: #9d7cff;
+        }
+
+        .skill-icon {
+            font-size: 30px;
+            margin-bottom: 15px;
+        }
+
+        .skill h3 {
+            margin-bottom: 8px;
+        }
+
+        .skill p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        /* =========================
+   ABOUT
+========================= */
+
+        .about {
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 80px;
+
+            align-items: center;
+        }
+
+        .about-image {
+            height: 500px;
+            border-radius: 20px;
+            background: radial-gradient(circle at 50% 50%, #151124 0%, #09090d 100%);
+            border: 1px solid rgba(157, 124, 255, 0.25);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 35px rgba(157, 124, 255, 0.12);
+            position: relative;
+            overflow: hidden;
+            cursor: grab;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .about-image:active {
+            cursor: grabbing;
+        }
+
+        .about-image:hover {
+            border-color: rgba(157, 124, 255, 0.5);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), 0 0 45px rgba(157, 124, 255, 0.22);
+        }
+
+        .canvas-3d {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .model-hint {
+            position: absolute;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(10, 10, 14, 0.75);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #d1c4e9;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 20px;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            z-index: 5;
+            white-space: nowrap;
+            transition: opacity 0.3s ease;
+        }
+
+        .model-hint-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #9d7cff;
+            box-shadow: 0 0 8px #9d7cff;
+            animation: pulse-dot 2s infinite;
+        }
+
+        .about-text h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            color: #999;
+
+            line-height: 1.8;
+
+            margin-bottom: 20px;
+        }
+
+        /* =========================
+   CONTACT
+========================= */
+
+        .contact {
+            text-align: center;
+
+            padding: 120px 20px;
+
+            background:
+                radial-gradient(circle at center,
+                    rgba(130, 90, 255, 0.15),
+                    transparent 45%);
+        }
+
+        .contact h2 {
+            font-size: clamp(40px, 7vw, 75px);
+
+            margin-bottom: 20px;
+        }
+
+        .contact p {
+            color: #888;
+            max-width: 550px;
+            margin: auto;
+            line-height: 1.7;
+        }
+
+        .contact-text {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #ffffff;
+            text-transform: uppercase;
+            margin-top: 40px;
+            margin-bottom: 25px;
+            display: inline-block;
+            position: relative;
+        }
+
+        .contact-text::after {
+            content: "";
+            display: block;
+            width: 45px;
+            height: 2px;
+            background: linear-gradient(90deg, #9d7cff, #ffffff);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        .contact-socials {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .contact-social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 22px;
+            background: rgba(18, 18, 24, 0.75);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            color: #e0e0e0;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .contact-social-link svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-social-link:hover {
+            transform: translateY(-4px);
+            color: #ffffff;
+        }
+
+        .contact-social-link:hover svg {
+            transform: scale(1.15);
+        }
+
+        .contact-social-link.instagram:hover {
+            border-color: rgba(225, 48, 108, 0.6);
+            background: rgba(225, 48, 108, 0.15);
+            box-shadow: 0 10px 25px rgba(225, 48, 108, 0.25);
+            color: #ff659c;
+        }
+
+        .contact-social-link.youtube:hover {
+            border-color: rgba(255, 0, 0, 0.6);
+            background: rgba(255, 0, 0, 0.15);
+            box-shadow: 0 10px 25px rgba(255, 0, 0, 0.25);
+            color: #ff5555;
+        }
+
+        .contact-social-link.twitter:hover {
+            border-color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+        }
+
+        .contact-social-link.fiverr:hover {
+            border-color: rgba(29, 191, 115, 0.6);
+            background: rgba(29, 191, 115, 0.15);
+            box-shadow: 0 10px 25px rgba(29, 191, 115, 0.25);
+            color: #2edc88;
+        }
+
+        /* =========================
+   FOOTER
+========================= */
+
+        footer {
+            border-top: 1px solid #1c1c1c;
+
+            padding: 30px 5%;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            color: #666;
+        }
+
+        .socials {
+            display: flex;
+            gap: 20px;
+        }
+
+        .socials a:hover {
+            color: white;
+        }
+
+        /* =========================
+   MODAL
+========================= */
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            width: min(850px, 95%);
+            max-height: 90vh;
+            overflow-y: auto;
+            background: #111115;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 18px;
+            padding: 0;
+            position: relative;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(157, 124, 255, 0.12);
+        }
+
+        .modal-media-wrap {
+            width: 100%;
+            max-height: 480px;
+            background: #050507;
+            border-radius: 18px 18px 0 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-media-element {
+            width: 100%;
+            max-height: 480px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .modal-body {
+            padding: 28px 32px 32px;
+        }
+
+        .modal-tag {
+            display: inline-block;
+            color: #9d7cff;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .close {
+            position: absolute;
+            right: 18px;
+            top: 18px;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            line-height: 1;
+            cursor: pointer;
+            color: #aaa;
+            z-index: 10;
+            transition: 0.2s;
+        }
+
+        .close:hover {
+            color: white;
+            background: rgba(157, 124, 255, 0.45);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .modal-content h2 {
+            margin-bottom: 12px;
+            font-size: 28px;
+        }
+
+        .modal-content p {
+            color: #999;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        /* =========================
+   SCROLL ANIMATION
+========================= */
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: 0.8s;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* =========================
+   MOBILE
+========================= */
+
+        @media(max-width:900px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .menu {
+                display: block;
+            }
+
+            .projects {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .project:nth-child(2) {
+                grid-column: span 2;
+            }
+
+            .skills {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+            }
+
+            .cube {
+                opacity: 0.3;
+                right: -80px;
+            }
+        }
+
+        @media(max-width:600px) {
+
+            section {
+                padding: 80px 0;
+            }
+
+            .hero {
+                text-align: center;
+            }
+
+            .hero-content {
+                margin: auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .projects {
+                grid-template-columns: 1fr;
+            }
+
+            .project:nth-child(2) {
+                grid-column: auto;
+            }
+
+            .project {
+                height: 320px;
+            }
+
+            .video-card {
+                border-radius: 14px;
+            }
+
+            .reel-play-btn {
+                width: 58px;
+                height: 58px;
+                font-size: 20px;
+            }
+
+            .video-title {
+                padding: 20px 16px 14px;
+                gap: 12px;
+            }
+
+            .video-info-left h3 {
+                font-size: 18px;
+                margin-bottom: 2px;
+            }
+
+            .video-info-left p {
+                font-size: 12px;
+            }
+
+            .reel-ctrl-btn {
+                width: 38px;
+                height: 38px;
+                font-size: 15px;
+            }
+
+            .skills {
+                grid-template-columns: 1fr;
+            }
+
+            .about-text h2,
+            .section-title h2 {
+                font-size: 38px;
+            }
+
+            footer {
+                flex-direction: column;
+
+                gap: 15px;
+
+                text-align: center;
+            }
+
+            .socials {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+     NAVBAR
+========================= -->
+
+    <nav>
+
+        <div class="logo">
+            IYYA<span>PPAN</span>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="#work">Work</a></li>
+            <li><a href="#animation">Animation</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+
+        <div class="menu">☰</div>
+
+    </nav>
+
+
+    <!-- =========================
+     HERO
+========================= -->
+
+    <section class="hero">
+
+        <div class="container">
+
+            <div class="hero-content">
+
+                <div class="small-title">
+                    3D Artist • Animator • Designer
+                </div>
+
+                <h1>
+                    I Build <span>Worlds</span><br>
+                    In 3D.
+                </h1>
+
+                <p>
+                    I'm a 3D artist and animator creating models,
+                    environments, characters and animations using
+                    Blender and modern 3D workflows.
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a href="#work" class="btn btn-primary">
+                        View My Work
+                    </a>
+
+                    <a href="#contact" class="btn btn-outline">
+                        Hire Me
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="cube"></div>
+
+    </section>
+
+
+    <!-- =========================
+     3D WORK
+========================= -->
+
+    <section id="work">
+
+        <div class="container">
+
+            <div class="section-title reveal">
+
+                <div class="small-title">
+                    Selected Work
+                </div>
+
+                <h2>3D Projects</h2>
+
+                <p>
+                    A selection of my modeling and 3D work.
+                </p>
+
+            </div>
+
+
+            <div class="projects">
+
+                <!-- Card 1: 3D Character (Image) -->
+                <div class="project reveal" onclick="openModal(
+             '3D Character',
+             'A stylized 3D character created using Blender. The project includes modeling, sculpting, materials, lighting and rendering.',
+             '3D Character Model',
+             'image',
+             'characterimg.png'
+             )">
+
+                    <div class="project-badge">
+                        3D Model
+                    </div>
+
+                    <div class="project-image">
+                        <img class="project-media" src="characterimg.png" alt="3D character model">
+                    </div>
+
+                    <div class="project-info">
+                        <h3>Character</h3>
+                        <p>Modeling • Texturing • Rendering</p>
+                    </div>
+
+                </div>
+
+                <!-- Card 2: Low Poly Animation (Video Loop Centerpiece) -->
+                <div class="project reveal" onclick="openModal(
+             'Low Poly Scene',
+             'A stylized low-poly environment designed for games and animation, rendered with smooth dynamic lighting and ambient motion.',
+             '3D Animation Loop',
+             'video',
+             'low%20poly.mp4'
+             )">
+
+                    <div class="project-badge video-badge">
+                        <span class="badge-dot"></span> Animation Loop
+                    </div>
+
+                    <div class="video-indicator">
+                        ▶
+                    </div>
+
+                    <div class="project-image">
+                        <video class="project-media" src="low%20poly.mp4" autoplay muted loop playsinline
+                            preload="auto"></video>
+                    </div>
+
+                    <div class="project-info">
+                        <h3>Low Poly World</h3>
+                        <p>Environment • Game Art • Animation</p>
+                    </div>
+
+                </div>
+
+                <!-- Card 3: Product Visualization (Image) -->
+                <div class="project reveal" onclick="openModal(
+             'Product Visualization',
+             'A detailed product visualization focusing on clean topology, procedural materials and studio lighting in Blender.',
+             'Hard Surface & Shading',
+             'image',
+             'productimg.png'
+             )">
+
+                    <div class="project-badge">
+                        Hard Surface
+                    </div>
+
+                    <div class="project-image">
+                        <img class="project-media" src="productimg.png" alt="3D product model">
+                    </div>
+
+                    <div class="project-info">
+                        <h3>Product Visualization</h3>
+                        <p>Hard Surface • Shaders • Studio Lighting</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+     ANIMATION
+========================= -->
+
+    <section id="animation">
+
+        <div class="container">
+
+            <div class="section-title reveal">
+
+                <div class="small-title">
+                    Motion & Animation
+                </div>
+
+                <h2>3D Animation Reel</h2>
+
+                <p>
+                    A showcase of cinematic motion, character animation, and dynamic lighting.
+                </p>
+
+            </div>
+
+            <div class="video-card reveal" id="animationReelCard">
+
+                <div class="project-badge video-badge">
+                    <span class="badge-dot"></span> Featured 4K Reel
+                </div>
+
+                <div class="reel-play-btn" id="reelPlayBtn" title="Play / Pause">
+                    ▶
+                </div>
+
+                <video id="reelVideo" class="reel-video" src="finalrender.mp4" autoplay muted loop playsinline
+                    preload="auto"></video>
+
+                <div class="video-title">
+
+                    <div class="video-info-left">
+                        <h3>3D Animation Reel</h3>
+                        <p>Cinematic Motion • Dynamic Lighting • Sound On</p>
+                    </div>
+
+                    <div class="video-controls">
+                        <button class="reel-ctrl-btn" id="soundToggleBtn" type="button"
+                            title="Toggle Sound (Mute / Unmute)">
+                            <span id="soundIcon">🔇</span>
+                        </button>
+                        <button class="reel-ctrl-btn" id="expandBtn" type="button"
+                            title="Watch in Fullscreen / Lightbox">
+                            <span>⛶</span>
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+     SKILLS
+========================= -->
+
+    <section id="skills">
+
+        <div class="container">
+
+            <div class="section-title reveal">
+
+                <div class="small-title">
+                    What I Do
+                </div>
+
+                <h2>Skills</h2>
+
+            </div>
+
+
+            <div class="skills">
+
+
+                <div class="skill reveal">
+
+                    <div class="skill-icon">
+                        ◈
+                    </div>
+
+                    <h3>3D Modeling</h3>
+
+                    <p>
+                        Characters, props, environments and
+                        hard-surface assets.
+                    </p>
+
+                </div>
+
+
+                <div class="skill reveal">
+
+                    <div class="skill-icon">
+                        ◉
+                    </div>
+
+                    <h3>Animation</h3>
+
+                    <p>
+                        Character animation, motion and
+                        cinematic sequences.
+                    </p>
+
+                </div>
+
+
+                <div class="skill reveal">
+
+                    <div class="skill-icon">
+                        ◆
+                    </div>
+
+                    <h3>Texturing</h3>
+
+                    <p>
+                        Materials, shaders and realistic
+                        or stylized textures.
+                    </p>
+
+                </div>
+
+
+                <div class="skill reveal">
+
+                    <div class="skill-icon">
+                        ✦
+                    </div>
+
+                    <h3>Rendering</h3>
+
+                    <p>
+                        Lighting, composition and
+                        final rendering.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+     ABOUT
+========================= -->
+
+    <section id="about">
+
+        <div class="container">
+
+            <div class="about">
+
+
+                <div class="about-image reveal" id="about3dContainer">
+                    <canvas id="about3dCanvas" class="canvas-3d"></canvas>
+                    <div class="model-hint">
+                        <span class="model-hint-dot"></span> 3D Earbuds • Drag to Rotate
+                    </div>
+                </div>
+
+
+                <div class="about-text reveal">
+
+                    <div class="small-title">
+                        About Me
+                    </div>
+
+                    <h2>
+                        Turning Ideas Into 3D.
+                    </h2>
+
+                    <p>
+                        I'm a passionate 3D artist and animator
+                        focused on creating visually appealing
+                        models, animations and digital worlds.
+                    </p>
+
+                    <p>
+                        I enjoy working on characters, environments,
+                        props and animation projects while constantly
+                        experimenting with new techniques.
+                    </p>
+
+                    <a href="#contact" class="btn btn-primary">
+                        Let's Work Together
+                    </a>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+     CONTACT
+========================= -->
+
+    <section id="contact" class="contact">
+
+        <div class="container reveal">
+
+            <div class="small-title">
+                Have A Project?
+            </div>
+
+            <h2>
+                Let's Create Something.
+            </h2>
+
+            <p>
+                Looking for a 3D artist or animator?
+                Let's talk about your project.
+            </p>
+
+            <div class="contact-text">
+                Contact Me
+            </div>
+
+            <p>
+                <a href="mailto:karthucartoon@gmail.com" class="contact-email-link">karthucartoon@gmail.com</a>
+            </p>
+
+            <div class="contact-socials">
+
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/karthu_cartoon/" target="_blank" rel="noopener noreferrer"
+                    class="contact-social-link instagram" title="Instagram">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                    </svg>
+                    <span>Instagram</span>
+                </a>
+
+                <!-- YouTube -->
+                <a href="https://www.youtube.com/@karthuofficial" target="_blank" rel="noopener noreferrer"
+                    class="contact-social-link youtube" title="YouTube">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                    </svg>
+                    <span>YouTube</span>
+                </a>
+
+                <!-- Twitter / X -->
+                <a href="https://x.com/12_iyyappan_21" target="_blank" rel="noopener noreferrer"
+                    class="contact-social-link twitter" title="Twitter / X">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                    </svg>
+                    <span>Twitter</span>
+                </a>
+
+                <!-- Fiverr -->
+                <a href="https://www.fiverr.com/karthu_edits?public_mode=true" target="_blank" rel="noopener noreferrer"
+                    class="contact-social-link fiverr" title="Fiverr">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M22.5 12c0 5.799-4.701 10.5-10.5 10.5S1.5 17.799 1.5 12 6.201 1.5 12 1.5 22.5 6.201 22.5 12zm-8.845-5.592c-.651 0-1.185.195-1.574.577-.389.382-.589.923-.589 1.602v.737h-1.64v1.652h1.64v5.348h2.091v-5.348h2.03v-1.652h-2.03v-.533c0-.323.085-.563.25-.71.165-.147.411-.22.727-.22.253 0 .524.038.802.112v-1.46a4.13 4.13 0 0 0-1.707-.105zm5.112 3.018h-1.76l-1.397 4.293-1.408-4.293h-1.78l2.252 6.136h1.834l2.259-6.136z" />
+                    </svg>
+                    <span>Fiverr</span>
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+     FOOTER
+========================= -->
+
+    <footer>
+
+        <div>
+            © 2026 IYYAPPAN
+        </div>
+
+
+        <!-- =========================
+     PROJECT MODAL
+========================= -->
+
+        <div class="modal" id="modal">
+
+            <div class="modal-content">
+
+                <div class="close" onclick="closeModal()">
+                    ×
+                </div>
+
+                <div class="modal-media-wrap" id="modalMedia"></div>
+
+                <div class="modal-body">
+                    <span class="modal-tag" id="modalTag">3D Project</span>
+                    <h2 id="modalTitle">
+                        Project
+                    </h2>
+                    <p id="modalText">
+                        Project description.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Three.js & GLTFLoader (Local + CDN fallback) -->
+        <script src="three.min.js"></script>
+        <script>
+            if (typeof THREE === "undefined") {
+                document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"><\/script>');
+            }
+        </script>
+        <script src="GLTFLoader.js"></script>
+        <script>
+            if (typeof THREE !== "undefined" && typeof THREE.GLTFLoader === "undefined") {
+                document.write('<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"><\/script>');
+            }
+        </script>
+        <script src="earburds_data.js"></script>
+
+        <script>
+
+            /* =========================
+               PROJECT MODAL
+            ========================= */
+
+            function openModal(title, text, tag, mediaType, mediaSrc) {
+
+                document.getElementById("modalTitle")
+                    .innerText = title;
+
+                document.getElementById("modalText")
+                    .innerText = text;
+
+                const tagEl = document.getElementById("modalTag");
+                if (tagEl) {
+                    tagEl.innerText = tag || "3D Project";
+                }
+
+                const mediaContainer = document.getElementById("modalMedia");
+                if (mediaContainer) {
+                    if (mediaType === 'video') {
+                        mediaContainer.innerHTML = `<video src="${mediaSrc}" controls autoplay loop playsinline class="modal-media-element"></video>`;
+                    } else if (mediaType === 'image') {
+                        mediaContainer.innerHTML = `<img src="${mediaSrc}" alt="${title}" class="modal-media-element">`;
+                    } else {
+                        mediaContainer.innerHTML = '';
+                    }
+                }
+
+                document.getElementById("modal")
+                    .classList.add("active");
+            }
+
+
+            function closeModal() {
+
+                const modal = document.getElementById("modal");
+                modal.classList.remove("active");
+
+                const mediaContainer = document.getElementById("modalMedia");
+                if (mediaContainer) {
+                    const vid = mediaContainer.querySelector("video");
+                    if (vid) {
+                        vid.pause();
+                    }
+                    mediaContainer.innerHTML = '';
+                }
+            }
+
+
+            document.getElementById("modal")
+                .addEventListener("click", function (e) {
+
+                    if (e.target === this) {
+                        closeModal();
+                    }
+
+                });
+
+            window.addEventListener("keydown", function (e) {
+                if (e.key === "Escape") {
+                    closeModal();
+                }
+            });
+
+
+            /* =========================
+               3D ANIMATION REEL CONTROLS
+            ========================= */
+
+            const reelVideo = document.getElementById("reelVideo");
+            const soundToggleBtn = document.getElementById("soundToggleBtn");
+            const soundIcon = document.getElementById("soundIcon");
+            const reelPlayBtn = document.getElementById("reelPlayBtn");
+            const expandBtn = document.getElementById("expandBtn");
+
+            if (reelVideo) {
+                function toggleReelPlay() {
+                    if (reelVideo.paused) {
+                        reelVideo.play();
+                    } else {
+                        reelVideo.pause();
+                    }
+                }
+
+                if (reelPlayBtn) {
+                    reelPlayBtn.addEventListener("click", (e) => {
+                        e.stopPropagation();
+                        toggleReelPlay();
+                    });
+                }
+
+                reelVideo.addEventListener("click", (e) => {
+                    toggleReelPlay();
+                });
+
+                reelVideo.addEventListener("play", () => {
+                    if (reelPlayBtn) {
+                        reelPlayBtn.classList.remove("is-paused");
+                        reelPlayBtn.innerText = "❚❚";
+                        setTimeout(() => {
+                            if (!reelVideo.paused && reelPlayBtn) {
+                                reelPlayBtn.innerText = "▶";
+                            }
+                        }, 800);
+                    }
+                });
+
+                reelVideo.addEventListener("pause", () => {
+                    if (reelPlayBtn) {
+                        reelPlayBtn.classList.add("is-paused");
+                        reelPlayBtn.innerText = "▶";
+                    }
+                });
+
+                if (soundToggleBtn && soundIcon) {
+                    soundToggleBtn.addEventListener("click", (e) => {
+                        e.stopPropagation();
+                        reelVideo.muted = !reelVideo.muted;
+                        soundIcon.innerText = reelVideo.muted ? "🔇" : "🔊";
+                        soundToggleBtn.classList.toggle("active", !reelVideo.muted);
+                    });
+                }
+
+                if (expandBtn) {
+                    expandBtn.addEventListener("click", (e) => {
+                        e.stopPropagation();
+                        if (reelVideo.requestFullscreen) {
+                            reelVideo.requestFullscreen();
+                        } else if (reelVideo.webkitRequestFullscreen) {
+                            reelVideo.webkitRequestFullscreen();
+                        } else {
+                            openModal('3D Animation Reel', 'Full 4K animation reel showcasing cinematic motion, dynamic lighting, and environmental rendering.', '4K Animation Reel', 'video', 'finalrender.mp4');
+                        }
+                    });
+                }
+            }
+
+
+            /* =========================
+               SCROLL REVEAL
+            ========================= */
+
+            const reveals =
+                document.querySelectorAll(".reveal");
+
+
+            function revealOnScroll() {
+
+                reveals.forEach(element => {
+
+                    const windowHeight =
+                        window.innerHeight;
+
+                    const elementTop =
+                        element.getBoundingClientRect().top;
+
+                    if (elementTop <
+                        windowHeight - 80) {
+
+                        element.classList.add("visible");
+
+                    }
+
+                });
+
+            }
+
+
+            window.addEventListener(
+                "scroll",
+                revealOnScroll
+            );
+
+            revealOnScroll();
+
+
+            /* =========================
+               MOBILE MENU
+            ========================= */
+
+            const menu =
+                document.querySelector(".menu");
+
+            const navLinks =
+                document.querySelector(".nav-links");
+
+
+            menu.addEventListener("click", () => {
+
+                if (navLinks.style.display === "flex") {
+
+                    navLinks.style.display = "none";
+
+                } else {
+
+                    navLinks.style.display = "flex";
+
+                    navLinks.style.position = "absolute";
+
+                    navLinks.style.top = "70px";
+
+                    navLinks.style.right = "5%";
+
+                    navLinks.style.flexDirection = "column";
+
+                    navLinks.style.background = "#111";
+
+                    navLinks.style.padding = "25px";
+
+                    navLinks.style.borderRadius = "10px";
+
+                }
+
+            });
+
+
+            /* =========================
+               3D INTERACTIVE ABOUT MODEL (EARBUDS)
+            ========================= */
+            (function initAbout3D() {
+                const container = document.getElementById("about3dContainer");
+                const canvas = document.getElementById("about3dCanvas");
+                if (!container || !canvas || typeof THREE === "undefined") return;
+
+                const scene = new THREE.Scene();
+
+                const camera = new THREE.PerspectiveCamera(
+                    40,
+                    container.clientWidth / container.clientHeight,
+                    0.1,
+                    1000
+                );
+                camera.position.set(0, 0.4, 6.0);
+
+                const renderer = new THREE.WebGLRenderer({
+                    canvas: canvas,
+                    alpha: true,
+                    antialias: true,
+                    powerPreference: "high-performance"
+                });
+                renderer.setSize(container.clientWidth, container.clientHeight);
+                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                renderer.toneMapping = THREE.ACESFilmicToneMapping;
+                renderer.toneMappingExposure = 1.1;
+
+                // Master pivot group for mouse & drag rotation
+                const masterGroup = new THREE.Group();
+                scene.add(masterGroup);
+
+                // Studio Lighting setup
+                const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+                scene.add(ambientLight);
+
+                // Key directional light (soft studio top-front)
+                const keyLight = new THREE.DirectionalLight(0xffffff, 1.8);
+                keyLight.position.set(4, 5, 5);
+                scene.add(keyLight);
+
+                // Rim light for clean edge highlights
+                const rimLight = new THREE.DirectionalLight(0x00f0ff, 1.3);
+                rimLight.position.set(-5, 3, -4);
+                scene.add(rimLight);
+
+                // Warm fill light
+                const fillLight = new THREE.DirectionalLight(0xffeedd, 0.9);
+                fillLight.position.set(2, -3, 3);
+                scene.add(fillLight);
+
+                // Dynamic mouse tracking point light (casts interactive specular highlights)
+                const mouseLight = new THREE.PointLight(0xb18cff, 2.5, 25);
+                mouseLight.position.set(0, 0, 4);
+                scene.add(mouseLight);
+
+                // Ground glow ring underneath earbuds
+                const groundGeo = new THREE.RingGeometry(0.7, 2.4, 48);
+                const groundMat = new THREE.MeshBasicMaterial({
+                    color: 0x9d7cff,
+                    transparent: true,
+                    opacity: 0.12,
+                    side: THREE.DoubleSide
+                });
+                const groundRing = new THREE.Mesh(groundGeo, groundMat);
+                groundRing.rotation.x = Math.PI / 2;
+                groundRing.position.y = -1.6;
+                scene.add(groundRing);
+
+                // Load and center the Earbuds 3D model
+                let earbudsModel = null;
+
+                function processModel(gltf) {
+                    earbudsModel = gltf.scene;
+
+                    // Center the geometry around origin
+                    const box = new THREE.Box3().setFromObject(earbudsModel);
+                    const center = box.getCenter(new THREE.Vector3());
+                    const size = box.getSize(new THREE.Vector3());
+
+                    earbudsModel.position.x -= center.x;
+                    earbudsModel.position.y -= center.y;
+                    earbudsModel.position.z -= center.z;
+
+                    // Scale to fit viewport gracefully
+                    const maxDim = Math.max(size.x, size.y, size.z);
+                    const targetSize = 3.4;
+                    const scale = targetSize / maxDim;
+                    earbudsModel.scale.set(scale, scale, scale);
+
+                    // Initial aesthetic tilt
+                    earbudsModel.rotation.x = 0.25;
+                    earbudsModel.rotation.y = -0.35;
+
+                    // Polish materials
+                    earbudsModel.traverse((child) => {
+                        if (child.isMesh) {
+                            child.castShadow = true;
+                            child.receiveShadow = true;
+                            if (child.material) {
+                                child.material.roughness = Math.min(child.material.roughness ?? 0.3, 0.35);
+                                child.material.metalness = child.material.metalness ?? 0.1;
+                                child.material.needsUpdate = true;
+                            }
+                        }
+                    });
+
+                    masterGroup.add(earbudsModel);
+                }
+
+                function base64ToArrayBuffer(base64) {
+                    const binaryString = window.atob(base64);
+                    const len = binaryString.length;
+                    const bytes = new Uint8Array(len);
+                    for (let i = 0; i < len; i++) {
+                        bytes[i] = binaryString.charCodeAt(i);
+                    }
+                    return bytes.buffer;
+                }
+
+                if (typeof THREE.GLTFLoader !== "undefined") {
+                    const loader = new THREE.GLTFLoader();
+
+                    if (window.EARBURDS_BASE64) {
+                        try {
+                            const buffer = base64ToArrayBuffer(window.EARBURDS_BASE64);
+                            loader.parse(buffer, '', (gltf) => {
+                                processModel(gltf);
+                            }, (err) => {
+                                console.warn("Base64 GLTF parse failed, trying direct file load:", err);
+                                loader.load('earburds.glb', processModel);
+                            });
+                        } catch (e) {
+                            loader.load('earburds.glb', processModel);
+                        }
+                    } else {
+                        loader.load('earburds.glb', processModel);
+                    }
+                }
+
+                // Interaction State
+                let targetRotationX = 0;
+                let targetRotationY = 0;
+                let currentRotationX = 0;
+                let currentRotationY = 0;
+                let isDragging = false;
+                let previousMouseX = 0;
+                let previousMouseY = 0;
+                let autoRotateSpeed = 0.005;
+
+                // React to mouse move across the page
+                window.addEventListener("mousemove", (e) => {
+                    const rect = container.getBoundingClientRect();
+                    const cx = rect.left + rect.width / 2;
+                    const cy = rect.top + rect.height / 2;
+                    const dx = (e.clientX - cx) / (window.innerWidth / 2);
+                    const dy = (e.clientY - cy) / (window.innerHeight / 2);
+
+                    if (!isDragging) {
+                        targetRotationY = dx * 0.85;
+                        targetRotationX = dy * 0.6;
+                    }
+
+                    // Move mouse light in 3D space to follow cursor
+                    mouseLight.position.x = dx * 4.5;
+                    mouseLight.position.y = -dy * 3.5 + 0.5;
+                });
+
+                // Click and drag to orbit in 3D
+                container.addEventListener("mousedown", (e) => {
+                    isDragging = true;
+                    previousMouseX = e.clientX;
+                    previousMouseY = e.clientY;
+                });
+
+                window.addEventListener("mouseup", () => {
+                    isDragging = false;
+                });
+
+                window.addEventListener("mousemove", (e) => {
+                    if (!isDragging) return;
+                    const deltaX = e.clientX - previousMouseX;
+                    const deltaY = e.clientY - previousMouseY;
+
+                    masterGroup.rotation.y += deltaX * 0.012;
+                    masterGroup.rotation.x += deltaY * 0.012;
+
+                    previousMouseX = e.clientX;
+                    previousMouseY = e.clientY;
+                });
+
+                // Mobile Touch interaction
+                let touchStartX = 0;
+                let touchStartY = 0;
+                container.addEventListener("touchstart", (e) => {
+                    if (e.touches.length === 1) {
+                        isDragging = true;
+                        touchStartX = e.touches[0].clientX;
+                        touchStartY = e.touches[0].clientY;
+                    }
+                }, { passive: true });
+
+                window.addEventListener("touchend", () => {
+                    isDragging = false;
+                });
+
+                window.addEventListener("touchmove", (e) => {
+                    if (!isDragging || e.touches.length !== 1) return;
+                    const deltaX = e.touches[0].clientX - touchStartX;
+                    const deltaY = e.touches[0].clientY - touchStartY;
+
+                    masterGroup.rotation.y += deltaX * 0.012;
+                    masterGroup.rotation.x += deltaY * 0.012;
+
+                    touchStartX = e.touches[0].clientX;
+                    touchStartY = e.touches[0].clientY;
+                }, { passive: true });
+
+                // Hover reactions
+                container.addEventListener("mouseenter", () => {
+                    autoRotateSpeed = 0.01;
+                });
+
+                container.addEventListener("mouseleave", () => {
+                    autoRotateSpeed = 0.005;
+                });
+
+                // Window resize handler
+                function onResize() {
+                    if (!container) return;
+                    const width = container.clientWidth;
+                    const height = container.clientHeight;
+                    if (width === 0 || height === 0) return;
+                    camera.aspect = width / height;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(width, height);
+                }
+                window.addEventListener("resize", onResize);
+
+                // Render loop
+                let clock = new THREE.Clock();
+                function animate() {
+                    requestAnimationFrame(animate);
+
+                    const elapsedTime = clock.getElapsedTime();
+
+                    // Gentle constant idle rotation
+                    if (!isDragging) {
+                        currentRotationX += (targetRotationX - currentRotationX) * 0.05;
+                        currentRotationY += (targetRotationY - currentRotationY) * 0.05;
+
+                        masterGroup.rotation.x = currentRotationX;
+                        masterGroup.rotation.y = currentRotationY + elapsedTime * autoRotateSpeed;
+                    }
+
+                    // Breathing float motion
+                    masterGroup.position.y = Math.sin(elapsedTime * 1.5) * 0.07;
+
+                    renderer.render(scene, camera);
+                }
+
+                animate();
+            })();
+
+        </script>
+
+</body>
+
+</html>
